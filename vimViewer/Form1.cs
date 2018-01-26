@@ -19,6 +19,7 @@ namespace vimViewer
         int filesInDir; // array length (i.e. files in a directory)
         bool prev = false;
         bool next = false;
+        bool zeroIndexLoaded = false;
 
         public Form1()
         {
