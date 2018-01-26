@@ -17,9 +17,6 @@ namespace vimViewer
         string currentDir = @"e:\tmp\tmp\"; // default directory
         int counter; // current images's index currentDirFiles[0 1 2 |3| 4 5 6] for example
         int filesInDir; // array length (i.e. files in a directory)
-        bool prev = false;
-        bool next = false;
-        bool zeroIndexLoaded = false;
 
         public Form1()
         {
@@ -68,44 +65,18 @@ namespace vimViewer
 
         private void nextImageButton_Click(object sender, EventArgs e)
         {
-            if (prev)
-            {
-                counter = counter + 2;
-            }
-            if (counter <= filesInDir - 1)
-            {
-                showImage(currentDirFiles[counter], counter);
-                counter++;
-            }
-            else
-            {
-                counter = 0;
-                showImage(currentDirFiles[counter], counter);
 
-            }
-            next = true;
-            prev = false;
+            counter = counter == currentDirFiles.Length - 1 ? 0 : counter + 1;
+            showImage(currentDirFiles[counter], counter);
 
         }
 
         private void previousImageButton_Click(object sender, EventArgs e)
         {
-           if (next)
-            {
-                counter = counter - 2;
-            }
-           if (counter >= 0)
-            {
-                showImage(currentDirFiles[counter], counter);
-                counter = counter -1;
-            }
-            else
-            {
-                counter = filesInDir - 1;
-                showImage(currentDirFiles[counter], counter);
-            }
-            prev = true;
-            next = false;
+
+            counter = counter == 0 ? currentDirFiles.Length - 1 : counter - 1;
+            showImage(currentDirFiles[counter], counter);
+
         }
 
         private void closeButton_Click(object sender, EventArgs e)
