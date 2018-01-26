@@ -71,6 +71,7 @@
             this.pictureBox1.Location = new System.Drawing.Point(3, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(878, 344);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -79,17 +80,17 @@
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(3, 353);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(66, 17);
+            this.checkBox1.Size = new System.Drawing.Size(39, 17);
             this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.Text = "full";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.openFileButton);
             this.flowLayoutPanel1.Controls.Add(this.opernDirButton);
-            this.flowLayoutPanel1.Controls.Add(this.nextImageButton);
             this.flowLayoutPanel1.Controls.Add(this.previousImageButton);
+            this.flowLayoutPanel1.Controls.Add(this.nextImageButton);
             this.flowLayoutPanel1.Controls.Add(this.closeButton);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(75, 353);
@@ -115,24 +116,27 @@
             this.opernDirButton.TabIndex = 1;
             this.opernDirButton.Text = "dir";
             this.opernDirButton.UseVisualStyleBackColor = true;
+            this.opernDirButton.Click += new System.EventHandler(this.opernDirButton_Click);
             // 
             // nextImageButton
             // 
-            this.nextImageButton.Location = new System.Drawing.Point(165, 3);
+            this.nextImageButton.Location = new System.Drawing.Point(246, 3);
             this.nextImageButton.Name = "nextImageButton";
             this.nextImageButton.Size = new System.Drawing.Size(75, 23);
             this.nextImageButton.TabIndex = 2;
             this.nextImageButton.Text = "next";
             this.nextImageButton.UseVisualStyleBackColor = true;
+            this.nextImageButton.Click += new System.EventHandler(this.nextImageButton_Click);
             // 
             // previousImageButton
             // 
-            this.previousImageButton.Location = new System.Drawing.Point(246, 3);
+            this.previousImageButton.Location = new System.Drawing.Point(165, 3);
             this.previousImageButton.Name = "previousImageButton";
             this.previousImageButton.Size = new System.Drawing.Size(75, 23);
             this.previousImageButton.TabIndex = 3;
             this.previousImageButton.Text = "prev";
             this.previousImageButton.UseVisualStyleBackColor = true;
+            this.previousImageButton.Click += new System.EventHandler(this.previousImageButton_Click);
             // 
             // closeButton
             // 
@@ -142,14 +146,16 @@
             this.closeButton.TabIndex = 4;
             this.closeButton.Text = "close";
             this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.label1, 2);
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 392);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 25);
+            this.label1.Size = new System.Drawing.Size(878, 25);
             this.label1.TabIndex = 3;
             // 
             // openFileDialog1
