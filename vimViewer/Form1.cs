@@ -13,10 +13,12 @@ namespace vimViewer
 {
     public partial class Form1 : Form
     {
-        string[] currentDirFiles;
-        string currentDir = @"e:\tmp\tmp\";
-        int counter = 0;
-        int filesInDir = 0;
+        string[] currentDirFiles; // array of files of a chosen directory
+        string currentDir = @"e:\tmp\tmp\"; // default directory
+        int counter; // current images's index currentDirFiles[0 1 2 |3| 4 5 6] for example
+        int filesInDir; // array length (i.e. files in a directory)
+        bool prev = false;
+        bool next = false;
 
         public Form1()
         {
@@ -24,6 +26,14 @@ namespace vimViewer
             var t = getFilesCount(currentDir);
             currentDirFiles = t.Item2;
             filesInDir = t.Item1;
+            counter = 0;
+            //showImage(currentDirFiles[0], counter);
+        }
+        private void showImage(string fileName, int counter)
+        {
+            pictureBox1.Load(fileName);
+            label1.Text = fileName;
+            label2.Text = $"{counter}";
         }
 
         private Tuple<int, string[]> getFilesCount(string dirName)
@@ -39,7 +49,7 @@ namespace vimViewer
             {
                 label1.Text = openFileDialog1.FileName;
                 pictureBox1.Load(openFileDialog1.FileName);
-                
+
             }
         }
 
@@ -49,44 +59,52 @@ namespace vimViewer
             {
                 label1.Text = folderBrowserDialog1.SelectedPath;
                 currentDir = folderBrowserDialog1.SelectedPath;
-
-
+                var t = getFilesCount(currentDir);
+                currentDirFiles = t.Item2;
+                filesInDir = t.Item1;
             }
         }
 
         private void nextImageButton_Click(object sender, EventArgs e)
         {
-
-            if (counter < filesInDir - 1)
+            if (prev)
             {
-                pictureBox1.Load(currentDirFiles[counter]);
+                counter = counter + 2;
+            }
+            if (counter <= filesInDir - 1)
+            {
+                showImage(currentDirFiles[counter], counter);
                 counter++;
-
-
             }
             else
             {
-                pictureBox1.Load(currentDirFiles[counter]);
                 counter = 0;
+                showImage(currentDirFiles[counter], counter);
 
             }
+            next = true;
+            prev = false;
 
         }
 
         private void previousImageButton_Click(object sender, EventArgs e)
         {
-            if (counter < filesInDir - 1)
+           if (next)
             {
-                pictureBox1.Load(currentDirFiles[counter]);
-                counter++;
-
-
+                counter = counter - 2;
+            }
+           if (counter >= 0)
+            {
+                showImage(currentDirFiles[counter], counter);
+                counter = counter -1;
             }
             else
             {
-                pictureBox1.Load(currentDirFiles[counter]);
-                counter = 0;
+                counter = filesInDir - 1;
+                showImage(currentDirFiles[counter], counter);
             }
+            prev = true;
+            next = false;
         }
 
         private void closeButton_Click(object sender, EventArgs e)
