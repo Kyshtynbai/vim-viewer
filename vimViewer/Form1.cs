@@ -16,5 +16,10 @@ namespace vimViewer
         {
             InitializeComponent();
         }
+
+        private void openFileButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
