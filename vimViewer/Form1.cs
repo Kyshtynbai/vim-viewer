@@ -13,25 +13,41 @@ namespace vimViewer
 {
     public partial class Form1 : Form
     {
-        string[] currentDirFiles; // array of files of a chosen directory
-        string currentDir = @"e:\tmp\tmp\"; // default directory
-        int counter; // current images's index currentDirFiles[0 1 2 |3| 4 5 6] for example
-        int filesInDir; // array length (i.e. files in a directory)
+        string[] currentDirFiles;
+        string currentDir = @"e:\tmp\tmp\";
+        int counter;
+        int filesInDir;
+        bool isFullScreen = false;
 
         public Form1()
         {
             InitializeComponent();
+            this.KeyPreview = true;
             var t = getFilesCount(currentDir);
             currentDirFiles = t.Item2;
             filesInDir = t.Item1;
             counter = 0;
-            //showImage(currentDirFiles[0], counter);
+            showImage(currentDirFiles[0], counter);
         }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Q))
+            {
+                this.Close();
+                // return true;
+            }
+            if (keyData == (Keys.F))
+            {
+                toggleFullScreen(isFullScreen);
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
         private void showImage(string fileName, int counter)
         {
             pictureBox1.Load(fileName);
-            label1.Text = fileName;
-            label2.Text = $"{counter}";
         }
 
         private Tuple<int, string[]> getFilesCount(string dirName)
@@ -45,7 +61,6 @@ namespace vimViewer
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                label1.Text = openFileDialog1.FileName;
                 pictureBox1.Load(openFileDialog1.FileName);
 
             }
@@ -55,7 +70,6 @@ namespace vimViewer
         {
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                label1.Text = folderBrowserDialog1.SelectedPath;
                 currentDir = folderBrowserDialog1.SelectedPath;
                 var t = getFilesCount(currentDir);
                 currentDirFiles = t.Item2;
@@ -82,6 +96,36 @@ namespace vimViewer
         private void closeButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void fullScreenButton_Click(object sender, EventArgs e)
+        {
+            toggleFullScreen(isFullScreen);
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            toggleFullScreen(isFullScreen);
+        }
+
+        private void toggleFullScreen(bool isFullScreen)
+        {
+            if (!isFullScreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Absolute;
+                tableLayoutPanel1.RowStyles[1].Height = 0;
+                this.isFullScreen = true;
+
+            }
+            else
+            {
+                this.FormBorderStyle = FormBorderStyle.Sizable;
+                this.WindowState = FormWindowState.Maximized;
+                tableLayoutPanel1.RowStyles[1].SizeType = SizeType.Percent;
+                tableLayoutPanel1.RowStyles[1].Height = 5;
+                this.isFullScreen = false;
+            }
         }
     }
 }
