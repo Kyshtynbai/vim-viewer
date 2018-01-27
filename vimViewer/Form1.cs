@@ -80,17 +80,26 @@ namespace vimViewer
         private void nextImageButton_Click(object sender, EventArgs e)
         {
 
-            counter = counter == currentDirFiles.Length - 1 ? 0 : counter + 1;
-            showImage(currentDirFiles[counter], counter);
+            ShowNextImage();
 
         }
 
         private void previousImageButton_Click(object sender, EventArgs e)
         {
 
+            ShowPreviousImage();
+
+        }
+
+        private void ShowNextImage()
+        {
+            counter = counter == currentDirFiles.Length - 1 ? 0 : counter + 1;
+            showImage(currentDirFiles[counter], counter);
+        }
+        private void ShowPreviousImage()
+        {
             counter = counter == 0 ? currentDirFiles.Length - 1 : counter - 1;
             showImage(currentDirFiles[counter], counter);
-
         }
 
         private void closeButton_Click(object sender, EventArgs e)
@@ -105,7 +114,7 @@ namespace vimViewer
 
         private void testButton_Click(object sender, EventArgs e)
         {
-            toggleFullScreen(isFullScreen);
+
         }
 
         private void toggleFullScreen(bool isFullScreen)
